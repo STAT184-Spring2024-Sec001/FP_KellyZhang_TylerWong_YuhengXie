@@ -20,6 +20,55 @@ rm(list = ls()) #clear the workspace
 library(knitr)
 library(dplyr)
 library(ggplot2)
+library(tidyverse)
 ```
 
+# Data Visualization Preparation
+**Import Datasets**
+```{r}
+NYC_Taurus <- read.csv("C:/Users/klaim/Downloads/NY (Taurus).csv")
+NYC_Mustang <- read.csv("C:/Users/klaim/Downloads/NY (Mustang).csv")
+NYC_Fusion <- read.csv("C:/Users/klaim/Downloads/NY (Fusion).csv")
+NYC_Focus <- read.csv("C:/Users/klaim/Downloads/NY (Focus).csv")
+NYC_Fiesta <- read.csv("C:/Users/klaim/Downloads/NY (Fiesta).csv")
+NYC_F350 <- read.csv("C:/Users/klaim/Downloads/NY (F350).csv")
+NYC_F250 <- read.csv("C:/Users/klaim/Downloads/NY (F250).csv")
+NYC_F150 <- read.csv("C:/Users/klaim/Downloads/NY (F150).csv")
+NYC_Explorer <- read.csv("C:/Users/klaim/Downloads/NY (Explorer).csv")
+NYC_Escape <- read.csv("C:/Users/klaim/Downloads/NY (Escape).csv")
+NYC_Edge <- read.csv("C:/Users/klaim/Downloads/NY (Edge).csv")
+
+```
+**Mutate, Add Location**
+```{r}
+NYC_Taurus_ML <- NYC_Taurus %>%
+  mutate(model = "Taurus", Location = "New York City")
+NYC_Mustang_ML <- NYC_Mustang %>%
+  mutate(model = "Mustang", Location = "New York City")
+NYC_Fusion_ML <- NYC_Fusion %>%
+  mutate(model = "Fusion", Location = "New York City")
+NYC_Fiesta_ML <- NYC_Fiesta %>%
+  mutate(model = "Fiesta", Location = "New York City")
+NYC_F350_ML <- NYC_F350 %>%
+  mutate(model = "F350", Location = "New York City")
+NYC_F250_ML <- NYC_F250 %>%
+  mutate(model = "F250", Location = "New York City")
+NYC_F150_ML <- NYC_F150 %>%
+  mutate(model = "F150", Location = "New York City")
+NYC_Explorer_ML <- NYC_Explorer %>%
+  mutate(model = "Explorer", Location = "New York City")
+NYC_Escape_ML <- NYC_Escape %>%
+  mutate(model = "Escape", Location = "New York City")
+NYC_Edge_ML <- NYC_Edge %>%
+  mutate(modele = "Edge", Location = "New York City")
+
+```
+
+**Merging Datasets**
+
+```{r}
+df_list <- list(NYC_Taurus_ML, NYC_Mustang_ML, NYC_Fusion_ML, NYC_Focus_ML, NYC_Fiesta_ML, NYC_F350_ML, NYC_F250_ML, NYC_F150_ML, NYC_Explorer_ML, NYC_Escape_ML, NYC_Edge_ML)
+
+merged_df <- bind_rows(df_list) 
+```
 
