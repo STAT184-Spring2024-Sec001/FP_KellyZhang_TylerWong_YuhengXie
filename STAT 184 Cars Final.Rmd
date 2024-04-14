@@ -73,6 +73,7 @@ NYC_Edge_ML <- NYC_Edge %>%
 ```{r}
 df_list_NYC <- list(NYC_Taurus_ML, NYC_Mustang_ML, NYC_Fusion_ML, NYC_Focus_ML, NYC_Fiesta_ML, NYC_F350_ML, NYC_F250_ML, NYC_F150_ML, NYC_Explorer_ML, NYC_Escape_ML, NYC_Edge_ML)
 
-merged_df_NYC <- bind_rows(df_list) 
+merged_df_NYC <- bind_rows(df_list) %>%
+  select(- mileage, -year)
 ```
 
