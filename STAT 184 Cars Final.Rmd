@@ -47,6 +47,8 @@ NYC_Mustang_ML <- NYC_Mustang %>%
   mutate(model = "Mustang", Location = "New York City")
 NYC_Fusion_ML <- NYC_Fusion %>%
   mutate(model = "Fusion", Location = "New York City")
+NYC_Focus_ML <- NYC_Focus %>%
+  mutate(model = "Focus", Location = "New York City")
 NYC_Fiesta_ML <- NYC_Fiesta %>%
   mutate(model = "Fiesta", Location = "New York City")
 NYC_F350_ML <- NYC_F350 %>%
