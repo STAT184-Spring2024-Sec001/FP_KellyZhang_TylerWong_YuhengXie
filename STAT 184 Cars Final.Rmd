@@ -39,6 +39,8 @@ NYC_Escape <- read.csv("C:/Users/klaim/Downloads/NY (Escape).csv")
 NYC_Edge <- read.csv("C:/Users/klaim/Downloads/NY (Edge).csv")
 
 ```
+
+
 **Mutate, Add Location**
 ```{r}
 NYC_Taurus_ML <- NYC_Taurus %>%
@@ -62,15 +64,15 @@ NYC_Explorer_ML <- NYC_Explorer %>%
 NYC_Escape_ML <- NYC_Escape %>%
   mutate(model = "Escape", Location = "New York City")
 NYC_Edge_ML <- NYC_Edge %>%
-  mutate(modele = "Edge", Location = "New York City")
+  mutate(model = "Edge", Location = "New York City")
 
 ```
 
 **Merging Datasets**
 
 ```{r}
-df_list <- list(NYC_Taurus_ML, NYC_Mustang_ML, NYC_Fusion_ML, NYC_Focus_ML, NYC_Fiesta_ML, NYC_F350_ML, NYC_F250_ML, NYC_F150_ML, NYC_Explorer_ML, NYC_Escape_ML, NYC_Edge_ML)
+df_list_NYC <- list(NYC_Taurus_ML, NYC_Mustang_ML, NYC_Fusion_ML, NYC_Focus_ML, NYC_Fiesta_ML, NYC_F350_ML, NYC_F250_ML, NYC_F150_ML, NYC_Explorer_ML, NYC_Escape_ML, NYC_Edge_ML)
 
-merged_df <- bind_rows(df_list) 
+merged_df_NYC <- bind_rows(df_list) 
 ```
 
