@@ -9,9 +9,18 @@ output:
   html_notebook: default
 ---
 
-**Introduction**
-- Hook, research question, etc.
----------------------
+# Introduction
+## Are Used Ford Car Prices Different in Inner and Outer Cities? 
+	
+When it comes to purchasing a car, many factors will be considered, such as price, year, milage, etc. Understanding those elements will help your decision-making process. Those are the elements that most people expect and know about. What many are not aware of is the fact that location plays a particularly key factor in car pricing.  
+	
+Supply and demand play a significant role in car pricing. When living in the suburbs, how would people reckon the value of a Ferrari? Some place like that, mid-priced family sedans would be expected to be the most popular thing. Geography factors could also play a key role in determining the value of your car. Hotter climates tend to affect the car faster, leading to a much quicker deterioration in the engine and battery, something that reduces the value of any car.  
+	
+Autotrader dataset generator is a website that generates CSV datasets of used cars listed at autotrader.com, which is an online auto retailer, based on a maker, a model, and a zip code. We chose Ford as our subject as it is widely popular. We randomly take one zip code boundary from the designated area we chose which are New York, Albany (a suburb of New York city), Philadelphia and Harrisburg.  
+	
+Our research is split into two parts. One of them is “compare car prices between New York and Albany.” The aim is to show car price differences between the city and suburbs. Another one is “compare car prices between Harrisburg and Philadelphia.” This is to show the difference between cities in the same state. 
+
+# Data Visualization Preparation
 
 **Load Packages**
 ```{r, include = F}
@@ -21,11 +30,13 @@ library(knitr)
 library(dplyr)
 library(ggplot2)
 library(tidyverse)
+library(ggformula)
+library(mosaic)
+library(car)
 ```
 
-# Data Visualization Preparation
 **Import Datasets**
-```{r}
+```{r, include = F}
 NYC_Taurus <- read.csv("C:/Users/klaim/Downloads/NY (Taurus).csv")
 NYC_Mustang <- read.csv("C:/Users/klaim/Downloads/NY (Mustang).csv")
 NYC_Fusion <- read.csv("C:/Users/klaim/Downloads/NY (Fusion).csv")
@@ -38,42 +49,227 @@ NYC_Explorer <- read.csv("C:/Users/klaim/Downloads/NY (Explorer).csv")
 NYC_Escape <- read.csv("C:/Users/klaim/Downloads/NY (Escape).csv")
 NYC_Edge <- read.csv("C:/Users/klaim/Downloads/NY (Edge).csv")
 
+ALB_Taurus <- read.csv("C:/Users/klaim/Downloads/ALB_Taurus.csv")
+ALB_Mustang <- read.csv("C:/Users/klaim/Downloads/ALB_Mustang.csv")
+ALB_Fusion <- read.csv("C:/Users/klaim/Downloads/ALB_Fusion.csv")
+ALB_Focus <- read.csv("C:/Users/klaim/Downloads/ALB_Focus.csv")
+ALB_Fiesta <- read.csv("C:/Users/klaim/Downloads/ALB_Fiesta.csv")
+ALB_F350 <- read.csv("C:/Users/klaim/Downloads/ALB_F350.csv")
+ALB_F250 <- read.csv("C:/Users/klaim/Downloads/ALB_F250.csv")
+ALB_F150 <- read.csv("C:/Users/klaim/Downloads/ALB_F150.csv")
+ALB_Explorer <- read.csv("C:/Users/klaim/Downloads/ALB_Explorer.csv")
+ALB_Escape <- read.csv("C:/Users/klaim/Downloads/ALB_Escape.csv")
+ALB_Edge <- read.csv("C:/Users/klaim/Downloads/ALB_Edge.csv")
+
+PHIL_Taurus <- read.csv("C:/Users/klaim/Downloads/PHIL_Taurus.csv")
+PHIL_Mustang <- read.csv("C:/Users/klaim/Downloads/PHIL_Mustang.csv")
+PHIL_Fusion <- read.csv("C:/Users/klaim/Downloads/PHIL_Fusion.csv")
+PHIL_Focus <- read.csv("C:/Users/klaim/Downloads/PHIL_Focus.csv")
+PHIL_Fiesta <- read.csv("C:/Users/klaim/Downloads/PHIL_Fiesta.csv")
+PHIL_F350 <- read.csv("C:/Users/klaim/Downloads/PHIL_F350.csv")
+PHIL_F250 <- read.csv("C:/Users/klaim/Downloads/PHIL_F250.csv")
+PHIL_F150 <- read.csv("C:/Users/klaim/Downloads/PHIL_F150.csv")
+PHIL_Explorer <- read.csv("C:/Users/klaim/Downloads/PHIL_Explorer.csv")
+PHIL_Escape <- read.csv("C:/Users/klaim/Downloads/PHIL_Escape.csv")
+PHIL_Edge <- read.csv("C:/Users/klaim/Downloads/PHIL_Edge.csv")
+
+HARS_Taurus <- read.csv("C:/Users/klaim/Downloads/HARS_Taurus.csv")
+HARS_Mustang <- read.csv("C:/Users/klaim/Downloads/HARS_Mustang.csv")
+HARS_Fusion <- read.csv("C:/Users/klaim/Downloads/HARS_Fusion.csv")
+HARS_Focus <- read.csv("C:/Users/klaim/Downloads/HARS_Focus.csv")
+HARS_Fiesta <- read.csv("C:/Users/klaim/Downloads/HARS_Fiesta.csv")
+HARS_F350 <- read.csv("C:/Users/klaim/Downloads/HARS_F350.csv")
+HARS_F250 <- read.csv("C:/Users/klaim/Downloads/HARS_F250.csv")
+HARS_F150 <- read.csv("C:/Users/klaim/Downloads/HARS_F150.csv")
+HARS_Explorer <- read.csv("C:/Users/klaim/Downloads/HARS_Explorer.csv")
+HARS_Escape <- read.csv("C:/Users/klaim/Downloads/HARS_Escape.csv")
+HARS_Edge <- read.csv("C:/Users/klaim/Downloads/HARS_Edge.csv")
+
 ```
 
 
 **Mutate, Add Location**
-```{r}
-NYC_Taurus_ML <- NYC_Taurus %>%
+```{r, include = F}
+NYC_Taurus <- NYC_Taurus %>%
   mutate(model = "Taurus", Location = "New York City")
-NYC_Mustang_ML <- NYC_Mustang %>%
+NYC_Mustang <- NYC_Mustang %>%
   mutate(model = "Mustang", Location = "New York City")
-NYC_Fusion_ML <- NYC_Fusion %>%
+NYC_Fusion <- NYC_Fusion %>%
   mutate(model = "Fusion", Location = "New York City")
-NYC_Focus_ML <- NYC_Focus %>%
+NYC_Focus <- NYC_Focus %>%
   mutate(model = "Focus", Location = "New York City")
-NYC_Fiesta_ML <- NYC_Fiesta %>%
+NYC_Fiesta <- NYC_Fiesta %>%
   mutate(model = "Fiesta", Location = "New York City")
-NYC_F350_ML <- NYC_F350 %>%
+NYC_F350 <- NYC_F350 %>%
   mutate(model = "F350", Location = "New York City")
-NYC_F250_ML <- NYC_F250 %>%
+NYC_F250 <- NYC_F250 %>%
   mutate(model = "F250", Location = "New York City")
-NYC_F150_ML <- NYC_F150 %>%
+NYC_F150 <- NYC_F150 %>%
   mutate(model = "F150", Location = "New York City")
-NYC_Explorer_ML <- NYC_Explorer %>%
+NYC_Explorer <- NYC_Explorer %>%
   mutate(model = "Explorer", Location = "New York City")
-NYC_Escape_ML <- NYC_Escape %>%
+NYC_Escape <- NYC_Escape %>%
   mutate(model = "Escape", Location = "New York City")
-NYC_Edge_ML <- NYC_Edge %>%
+NYC_Edge <- NYC_Edge %>%
   mutate(model = "Edge", Location = "New York City")
 
+ALB_Taurus <- ALB_Taurus %>%
+  mutate(model = "Taurus", Location = "Albany")
+ALB_Mustang <- ALB_Mustang %>%
+  mutate(model = "Mustang", Location = "Albany")
+ALB_Fusion <- ALB_Fusion %>%
+  mutate(model = "Fusion", Location = "Albany")
+ALB_Focus <- ALB_Focus %>%
+  mutate(model = "Focus", Location = "Albany")
+ALB_Fiesta <- ALB_Fiesta %>%
+  mutate(model = "Fiesta", Location = "Albany")
+ALB_F350 <- ALB_F350 %>%
+  mutate(model = "F350", Location = "Albany")
+ALB_F250_ML <- ALB_F250 %>%
+  mutate(model = "F250", Location = "Albany")
+ALB_F150 <- ALB_F150 %>%
+  mutate(model = "F150", Location = "Albany")
+ALB_Explorer <- ALB_Explorer %>%
+  mutate(model = "Explorer", Location = "Albany")
+ALB_Escape <- ALB_Escape %>%
+  mutate(model = "Escape", Location = "Albany")
+ALB_Edge <- ALB_Edge %>% 
+  mutate(model = "Edge", Location = "Albany")
+
+PHIL_Taurus <- PHIL_Taurus %>%
+  mutate(model = "Taurus", Location = "Philadelphia")
+PHIL_Mustang <- PHIL_Mustang %>%
+  mutate(model = "Mustang", Location = "Philadelphia")
+PHIL_Fusion <- PHIL_Fusion %>%
+  mutate(model = "Fusion", Location = "Philadelphia")
+PHIL_Focus <- PHIL_Focus %>%
+  mutate(model = "Focus", Location = "Philadelphia")
+PHIL_Fiesta <- PHIL_Fiesta %>%
+  mutate(model = "Fiesta", Location = "Philadelphia")
+PHIL_F350 <- PHIL_F350 %>%
+  mutate(model = "F350", Location = "Philadelphia")
+PHIL_F250_ML <- PHIL_F250 %>%
+  mutate(model = "F250", Location = "Philadelphia")
+PHIL_F150 <- PHIL_F150 %>%
+  mutate(model = "F150", Location = "Philadelphia")
+PHIL_Explorer <- ALB_Explorer %>%
+  mutate(model = "Explorer", Location = "Philadelphia")
+PHIL_Escape <- PHIL_Escape %>%
+  mutate(model = "Escape", Location = "Philadelphia")
+PHIL_Edge <- PHIL_Edge %>% 
+  mutate(model = "Edge", Location = "Philadelphia")
+
+
+HARS_Taurus <- HARS_Taurus %>%
+  mutate(model = "Taurus", Location = "Harrisburg")
+HARS_Mustang <- HARS_Mustang %>%
+  mutate(model = "Mustang", Location = "Harrisburg")
+HARS_Fusion <- HARS_Fusion %>%
+  mutate(model = "Fusion", Location = "Harrisburg")
+HARS_Focus <- HARS_Focus %>%
+  mutate(model = "Focus", Location = "Harrisburg")
+HARS_Fiesta <- HARS_Fiesta %>%
+  mutate(model = "Fiesta", Location = "Harrisburg")
+HARS_F350 <- HARS_F350 %>%
+  mutate(model = "F350", Location = "Harrisburg")
+HARS_F250_ML <- HARS_F250 %>%
+  mutate(model = "F250", Location = "Harrisburg")
+HARS_F150 <- HARS_F150 %>%
+  mutate(model = "F150", Location = "Harrisburg")
+HARS_Explorer <- ALB_Explorer %>%
+  mutate(model = "Explorer", Location = "Harrisburg")
+HARS_Escape <- HARS_Escape %>%
+  mutate(model = "Escape", Location = "Harrisburg")
+HARS_Edge <- HARS_Edge %>% 
+  mutate(model = "Edge", Location = "Harrisburg")
 ```
 
 **Merging Datasets**
 
 ```{r}
-df_list_NYC <- list(NYC_Taurus_ML, NYC_Mustang_ML, NYC_Fusion_ML, NYC_Focus_ML, NYC_Fiesta_ML, NYC_F350_ML, NYC_F250_ML, NYC_F150_ML, NYC_Explorer_ML, NYC_Escape_ML, NYC_Edge_ML)
+df_list_NYC <- list(NYC_Taurus, NYC_Mustang, NYC_Fusion, NYC_Focus, NYC_Fiesta, NYC_F350, NYC_F250, NYC_F150, NYC_Explorer, NYC_Escape, NYC_Edge)
 
-merged_df_NYC <- bind_rows(df_list) %>%
-  select(- mileage, -year)
+NYC <- bind_rows(df_list_NYC) %>%
+  select(-mileage) %>%
+  filter(price != 0)
+
+df_list_ALB <- list(ALB_Taurus, ALB_Mustang, ALB_Fusion, ALB_Focus, ALB_Fiesta, ALB_F350, ALB_F250, ALB_F150, ALB_Explorer, ALB_Escape, ALB_Edge)
+
+ALB <- bind_rows(df_list_ALB) %>%
+  select(-mileage) %>%
+  filter(price != 0)
+
+df_list_PHIL <- list(PHIL_Taurus, PHIL_Mustang, PHIL_Fusion, PHIL_Focus, PHIL_Fiesta, PHIL_F350, PHIL_F250, PHIL_F150, PHIL_Explorer, PHIL_Escape, PHIL_Edge)
+
+PHIL <- bind_rows(df_list_PHIL) %>%
+  select(-mileage) %>%
+  filter(price != 0)
+
+df_list_HARS <- list(HARS_Taurus, HARS_Mustang, HARS_Fusion, HARS_Focus, HARS_Fiesta, HARS_F350, HARS_F250, HARS_F150, HARS_Explorer, HARS_Escape, HARS_Edge)
+
+HARS <- bind_rows(df_list_HARS) %>%
+  select(-mileage) %>%
+  filter(price != 0)
+
+All_Cars <- bind_rows(ALB, PHIL, NYC, HARS) %>%
+  na.omit() 
+
+```
+
+# Data Exploration and Visaulization
+## Side-by-Side Boxplot 
+```{r}
+ggplot(
+data = All_Cars,
+mapping = aes(x = Location, y = price, fill = Location)) +
+  geom_boxplot() +
+  ggtitle("Boxplot of Used Ford Car Prices by Location") +
+  theme_bw() +
+  xlab("Location") +
+  ylab("Price") +
+  theme(
+  legend.position = "none",
+  text = element_text(size = 12))
+```
+
+## Bar Graph
+```{r}
+
+All_Cars_Median <- All_Cars %>%
+  group_by(Location) %>%
+  summarise(median_price = median(price), na.rm = TRUE)
+
+ggplot(
+data = All_Cars_Median,
+mapping = aes(x = Location, y = median_price, fill = Location)) +
+  geom_bar(stat = "identity", width = 0.3) +
+  ggtitle("Bargraph of Used Ford Car Prices by Location") +
+  theme_bw() +
+  xlab("Location") +
+  ylab("Price") +
+  theme(
+  legend.position = "none",
+  text = element_text(size = 12))
+```
+# Scatterplot Graph 
+```{r}
+median_prices <- All_Cars %>%
+  group_by(year, Location) %>%
+  summarise(median_price = median(price, na.rm = TRUE))
+
+# Create the scatterplot
+ggplot(
+  geom_point(
+    data = median_prices,
+    aes(y = median_price),
+    color = "black",
+    size = 3
+  ) +
+  scale_color_manual(values = c("red", "blue", "green", "purple")) +  # Specify colors for locations
+  ggtitle("Scatterplot of Car Prices by Year") +
+  xlab("Year") +
+  ylab("Price") +
+  theme_bw()
+
 ```
 
