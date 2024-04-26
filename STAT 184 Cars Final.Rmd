@@ -11,12 +11,12 @@ output:
 
 ## Introduction
 
-**Are Used Car (Ford) Prices Different in Inner and Outer Cities?**
+**Are Used Car Prices Different in Inner and Outer Cities?**
 
 Since 2020, notably after the pandemic, car prices have soared to new heights. In accordance to economic inflation, specifically fuel prices, there is no doubt that purchasing a new car requires immense reflection and a strong financial position. One solution to consider is to purchase a used car. 
 
 When it comes to purchasing a used car, many factors are considered. Such factors include price of the car, the mileage, and the model. These elements have proved to be statistically significant in determining the price of a used car; however, what about the location from whom the car is purchased? 
-For instance, the supply and demand in inner cities, such as New York or Philadelphia, may be higher than that of rural or suburban areas like Harrisburg or Albany. Because inner cities have a larger population, demand may be higher, and this can lead to car price inflation. On the other hand, less populated areas may have less demand and could be cheaper. Therefore, a research question could be, "Are Used Car Prices (Ford) Different in Inner and Outer Cities?"
+For instance, the supply and demand in inner cities, such as New York or Philadelphia, may be higher than that of rural or suburban areas like Harrisburg or Albany. Because inner cities have a larger population, demand may be higher, and this can lead to car price inflation. On the other hand, less populated areas may have less demand and could be cheaper. Therefore, a research question could be, "Are Used Car Prices Different in Inner and Outer Cities?"
 
 To answer the question, our group used data from Autotrader. The Autotrader dataset generator is a website that generates CSV datasets of used cars listed at autotrader.com, which is an online auto retailer, based on a maker, a model, and a zip code. In the data set, each case represents an individual Ford car. We chose Ford as the focused model as it is the most popular car brand in the United States. This would allow for large amounts of data. We randomly selected one major city and a suburban or rural area. These locations are New York City and Albany, and Philadelphia and Harrisburg. In the dataset, there are the variables year, price, and mileage; thus, we will need to add a column for "location." This is further explained in the data visualization preparation process.
 
