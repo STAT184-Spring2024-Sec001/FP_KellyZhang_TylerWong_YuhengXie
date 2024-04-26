@@ -1,0 +1,704 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Stat 184 Final Project},
+  pdfauthor={Kelly Zhang, Tyler Wong, Yuheng Xie},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Stat 184 Final Project}
+\author{Kelly Zhang, Tyler Wong, Yuheng Xie}
+\date{Last Updated: 2024-04-26}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+\textbf{Are Used Car (Ford) Prices Different in Inner and Outer Cities?}
+
+Since 2020, notably after the pandemic, car prices have soared to new
+heights. In accordance to economic inflation, specifically fuel prices,
+there is no doubt that purchasing a new car requires immense reflection
+and a strong financial position. One solution to consider is to purchase
+a used car.
+
+When it comes to purchasing a used car, many factors are considered.
+Such factors include price of the car, the mileage, and the model. These
+elements have proved to be statistically significant in determining the
+price of a used car; however, what about the location from whom the car
+is purchased? For instance, the supply and demand in inner cities, such
+as New York or Philadelphia, may be higher than that of rural or
+suburban areas like Harrisburg or Albany. Because inner cities have a
+larger population, demand may be higher, and this can lead to car price
+inflation. On the other hand, less populated areas may have less demand
+and could be cheaper. Therefore, a research question could be, ``Are
+Used Car (Ford) Prices Different in Inner and Outer Cities?''
+
+To answer the question, our group used data from Autotrader. The
+Autotrader dataset generator is a website that generates CSV datasets of
+used cars listed at autotrader.com, which is an online auto retailer,
+based on a maker, a model, and a zip code. In the data set, each case
+represents an individual Ford car. We chose Ford as the focused model as
+it is the most popular car brand in the United States. This would allow
+for large amounts of data. We randomly selected one major city and a
+suburban or rural area. These locations are New York City and Albany,
+and Philadelphia and Harrisburg. In the dataset, there are the variables
+year, price, and mileage; thus, we will need to add a column for
+``location.'' This is further explained in the data visualization
+preparation process.
+
+\hypertarget{data-visualization-preparation}{%
+\subsection{Data Visualization
+Preparation}\label{data-visualization-preparation}}
+
+\textbf{Data Visualization Preparation Process}
+
+The research conducted is split into 4 parts. The first part is data
+wrangling and data preparation. The data set is tidied, but the data is
+separated by model. Because we are focused on price and location, we add
+a location column and merge every Ford model to create a New York City
+data set. This procedure is then repeated for the following cities:
+Albany, Philadelphia, and Harrisburg. There are 4 data sets representing
+location and price. Additionally, each dataset is filtered to remove all
+N/A values and prices that are 0, as prices cannot be \$0.
+
+\textbf{Load Packages}
+
+\textbf{Import Datasets}
+
+\textbf{Add Location Column and Merge Datasets}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NYC }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(NYC\_Taurus, NYC\_Mustang, NYC\_Fusion, NYC\_Focus, NYC\_Fiesta, NYC\_F350, NYC\_F250, NYC\_F150, NYC\_Explorer, NYC\_Escape, NYC\_Edge) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{mileage) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(price }\SpecialCharTok{!=} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{NYC}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"New York City"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(NYC))}
+
+\NormalTok{ALB }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(ALB\_Taurus, ALB\_Mustang, ALB\_Fusion, ALB\_Focus, ALB\_Fiesta, ALB\_F350, ALB\_F250, ALB\_F150, ALB\_Explorer, ALB\_Escape, ALB\_Edge) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{mileage) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(price }\SpecialCharTok{!=} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{ALB}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"Albany"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(ALB))}
+
+\NormalTok{PHIL }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(PHIL\_Taurus, PHIL\_Mustang, PHIL\_Fusion, PHIL\_Focus, PHIL\_Fiesta, PHIL\_F350, PHIL\_F250, PHIL\_F150, PHIL\_Explorer, PHIL\_Escape, PHIL\_Edge) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{mileage) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(price }\SpecialCharTok{!=} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{PHIL}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"Philadelphia"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(PHIL))}
+
+\NormalTok{HARS }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(HARS\_Taurus, HARS\_Mustang, HARS\_Fusion, HARS\_Focus, HARS\_Fiesta, HARS\_F350, HARS\_F250, HARS\_F150, HARS\_Explorer, HARS\_Escape, HARS\_Edge) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{mileage) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(price }\SpecialCharTok{!=} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{HARS}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"Harrisburg"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(HARS))}
+
+\NormalTok{NY }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(NYC, ALB) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{na.omit}\NormalTok{()}
+
+\NormalTok{PA }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(HARS, PHIL) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{na.omit}\NormalTok{()}
+
+\NormalTok{All\_Cars }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(ALB, PHIL, NYC, HARS) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{na.omit}\NormalTok{() }
+
+\FunctionTok{write.csv}\NormalTok{(All\_Cars, }\AttributeTok{file =} \StringTok{"All\_Cars.csv"}\NormalTok{) }\CommentTok{\#add merged dataset to gitHUB}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-exploration-and-visaulization}{%
+\subsection{Data Exploration and
+Visaulization}\label{data-exploration-and-visaulization}}
+
+\textbf{Data Inspection}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(All\_Cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   year  price Location
+## 1 2012  9.995   Albany
+## 2 2019 14.480   Albany
+## 3 2017 12.998   Albany
+## 4 2012  6.999   Albany
+## 5 2014  7.495   Albany
+## 6 2017 19.950   Albany
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(All\_Cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 9,435
+## Columns: 3
+## $ year     <int> 2012, 2019, 2017, 2012, 2014, 2017, 2018, 2003, 2006, 2017, 1~
+## $ price    <dbl> 9.995, 14.480, 12.998, 6.999, 7.495, 19.950, 17.000, 2.999, 5~
+## $ Location <chr> "Albany", "Albany", "Albany", "Albany", "Albany", "Albany", "~
+\end{verbatim}
+
+Based on the data inspection, all elements are structured correctly. For
+year and price, the variables are measured quantitatively, with integer
+and floats (accepting decimal values). Regarding location, the cases are
+categorical and represented by characters or strings. Thus, when doing
+EDA, we can expect the data frame to provide an output for price, in
+decimals, and location, as strings. This will be important as we are
+able to create certain graphs, like boxplots, that account for one
+quantitative and one categorical variable.
+
+\textbf{Side-by-Side Boxplot}
+
+For the data exploration and visualization process, we create a box plot
+as there is categorical and quantitative data. A box plot is a strong
+data visualization to portray the relationship between these variables,
+and the visualization of a five-number summary.
+
+\textbf{\emph{Five-number summary}}: descriptive statistics that output
+a minimum value, first-quartile (25\% or 25th percentile), median (50\%
+or 50th percentile), third quartile (75\% or 75th percentile), and the
+maximum value.
+
+\hypertarget{boxplot-1-new-york}{%
+\subparagraph{Boxplot 1: New York}\label{boxplot-1-new-york}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}
+\AttributeTok{data =}\NormalTok{ NY,}
+\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Location, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{fill =}\NormalTok{ Location)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Boxplot of Used Ford Car Prices in New York"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"salmon"}\NormalTok{, }\StringTok{"salmon1"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Price (in USD)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+  \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+  \AttributeTok{text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{boxplot-2-pennsylvania}{%
+\subparagraph{Boxplot 2: Pennsylvania}\label{boxplot-2-pennsylvania}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}
+\AttributeTok{data =}\NormalTok{ PA,}
+\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Location, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{fill =}\NormalTok{ Location)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Boxplot of Used Ford Car Prices in Pennsylvania"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Price (in USD)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"lightblue"}\NormalTok{, }\StringTok{"lightblue4"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+  \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+  \AttributeTok{text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\textbf{Boxplot Observations:}
+
+From the boxplot 1 and 2, New York and Pennsylvania, there are multiple
+observations that can be insightful. Firstly, notice the amount of
+outliers. These outliers are difficult to remove due to the different
+confounding variables regarding price variation. Although we were able
+to remove few outliers with cars that were \$0, higher outliers are not
+as easily found. The second observation is the actual IQR values. The
+IQR range (third quartile - first quartile) and median are similar in
+both locations, suggesting that there may not be a statistically
+significant difference.
+
+\hypertarget{bar-graphs}{%
+\subsubsection{\texorpdfstring{\textbf{Bar
+Graphs}}{Bar Graphs}}\label{bar-graphs}}
+
+\hypertarget{bar-graph-1-new-york}{%
+\subparagraph{Bar Graph 1: New York}\label{bar-graph-1-new-york}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NY\_Median }\OtherTok{\textless{}{-}}\NormalTok{ NY }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Location) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}
+\AttributeTok{data =}\NormalTok{ NY\_Median,}
+\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Location, }\AttributeTok{y =}\NormalTok{ median\_price, }\AttributeTok{fill =}\NormalTok{ Location)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"salmon"}\NormalTok{, }\StringTok{"salmon1"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Bargraph of Used Ford Car Prices by Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Median Price (USD)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+  \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+  \AttributeTok{text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\hypertarget{bar-graph-2-pennsylvania}{%
+\subparagraph{Bar Graph 2:
+Pennsylvania}\label{bar-graph-2-pennsylvania}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PA\_Median }\OtherTok{\textless{}{-}}\NormalTok{ PA }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Location) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}
+\AttributeTok{data =}\NormalTok{ PA\_Median,}
+\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Location, }\AttributeTok{y =}\NormalTok{ median\_price, }\AttributeTok{fill =}\NormalTok{ Location)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"lightblue"}\NormalTok{, }\StringTok{"lightblue4"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Bargraph of Used Ford Car Prices by Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Location"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Median Price (USD)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+  \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+  \AttributeTok{text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-8-1.pdf}
+\textbf{Bar Graph Observations:}
+
+From the side-to-side boxplot, we concluded that there is a minor
+difference between the inner and outer city car prices. The bar graphs
+allow us to ``zoom in'' on this visualization by wrangling both data
+sets with group\_by() and summarise() function. Using these functions,
+we can calculate the median for both data sets. Typically, the mean is
+used for discussing averages; however, as found in the boxplots, there
+are many outliers, which are difficult to remove. Thus, we are able to
+use median to minimize the effects of outliers and influential points in
+the data. As observed in both plots, the median prices are not
+significantly different between locations. In fact, there may only be a
+noticeable thousand dollar distinction.
+
+\hypertarget{scatterplot-graphs}{%
+\subsubsection{\texorpdfstring{\textbf{Scatterplot
+Graphs}}{Scatterplot Graphs}}\label{scatterplot-graphs}}
+
+\hypertarget{scatterplot-graph-1-new-york}{%
+\subparagraph{Scatterplot Graph 1: New
+York}\label{scatterplot-graph-1-new-york}}
+
+\textbf{Scatterplot Process \& Purpose:}
+
+The scatterplot is a model that is different from our general data
+visualization process. One of the main differences is the x-axis
+includes the variable ``year,'' meaning there are 3 variables of
+interest (price, year, location), rather than the original two
+variables, price and location. The reason a scatterplot was introduced
+was to display the overall trend of Ford cars to support the two
+regression lines. Without each individual data point, we may not
+understand where the inserction between lines occur or why it is a
+positive slope.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{gf\_point}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ year, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Location, }\AttributeTok{data =}\NormalTok{ NY) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gf\_lm}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using the `size` aesthetic with geom_line was deprecated in ggplot2 3.4.0.
+## i Please use the `linewidth` aesthetic instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\textbf{Scatterplot 1 Observations}
+
+In the first scatterplot, there are multiple observations to note.
+Firstly, notice that there is an intersection point between the lines.
+This is interesting as it provides evidence that there may be a
+significant interaction term between location and price. We can later
+test this theory by using a hypothesis test and fitted model.
+
+Secondly, the heavy increasing trend towards the year 2020. Almost in
+the shape of a helix, the values on the far right introduce an
+all-time-high price at around \$150 000. Given that this may be an
+outlier, when observing the data that follows, there is no doubt that as
+the year increases, so does the price. In the context of the data set,
+this provides evidence that the newer the car, the higher the price.
+Although this does not necessarily support our location and price
+research inquiry, it is important to explore other variables when
+location and price seem to be insignificant.
+
+\hypertarget{scatterplot-graph-2-pennsylvania}{%
+\subparagraph{Scatterplot Graph 2:
+Pennsylvania}\label{scatterplot-graph-2-pennsylvania}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{gf\_point}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ year, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Location, }\AttributeTok{data =}\NormalTok{ PA) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gf\_lm}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\textbf{Scatterplot 2 Observations:}
+
+The second scatterplot, between Harrisburg and Philadephia, is notable
+because the lines are extremely similar. This is contradicting
+information from the first scatterplot, in which there were small
+differences in slope and y-intercept, specifically between the 1990 to
+2010. This provided evidence that there may be a difference in locations
+and price. However, from the Pennsylvania scatterplot, the plot shows
+little evidence that there is a relevant difference in prices for
+Harrisburg and Philadephia.
+
+\hypertarget{summary-table}{%
+\subsubsection{\texorpdfstring{\textbf{Summary
+Table}}{Summary Table}}\label{summary-table}}
+
+\hypertarget{summary-table-1-new-york}{%
+\subparagraph{Summary Table 1: New
+York}\label{summary-table-1-new-york}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get descriptive statistics of price and location}
+\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
+  \AttributeTok{x =}\NormalTok{ NY}\SpecialCharTok{$}\NormalTok{price,}
+  \AttributeTok{group =}\NormalTok{ NY}\SpecialCharTok{$}\NormalTok{Location,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{skew =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{ranges =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{quant =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.75}\NormalTok{),}
+  \AttributeTok{IQR =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{mat =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+
+\CommentTok{\# Set row names as location; select useful columns}
+\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}}\NormalTok{ groupStats\_NY }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{remove\_rownames}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{column\_to\_rownames}\NormalTok{(}
+  \AttributeTok{var =} \StringTok{"group1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}
+\NormalTok{  n, min, Q0}\FloatTok{.25}\NormalTok{, median, Q0}\FloatTok{.75}\NormalTok{, max, mad, mean, sd, skew, kurtosis)}
+
+\CommentTok{\# Generate a professional looking table}
+\NormalTok{groupStats\_NY }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+    \AttributeTok{caption =} \StringTok{"Summary Statistics for Used Car Prices (in Thousands) in New York"}\NormalTok{,}
+    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{format.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{big.mark =} \StringTok{","}\NormalTok{),}
+    \AttributeTok{align =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{, }\DecValTok{11}\NormalTok{),}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"Min"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"Median"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Max"}\NormalTok{, }\StringTok{"MAD"}\NormalTok{, }\StringTok{"SAM"}\NormalTok{, }\StringTok{"SASD"}\NormalTok{,}
+    \StringTok{"Sample Skew"}\NormalTok{, }\StringTok{"Sample Ex. Kurtosis"}\NormalTok{),}
+  \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}
+  \AttributeTok{font\_size =} \DecValTok{12}\NormalTok{,}
+  \AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"scale\_down"}\NormalTok{, }\StringTok{"HOLD\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in styling_latex_scale(out, table_info, "down"): Longtable cannot be
+## resized.
+\end{verbatim}
+
+\begingroup\fontsize{12}{14}\selectfont
+
+\begin{longtable}[t]{lccccccccccc}
+\caption{\label{tab:unnamed-chunk-11}Summary Statistics for Used Car Prices (in Thousands) in New York}\\
+\toprule
+ & n & Min & Q1 & Median & Q3 & Max & MAD & SAM & SASD & Sample Skew & Sample Ex. Kurtosis\\
+\midrule
+Albany & 1,657 & 1 & 19.890 & 27.995 & 38.000 & 129.500 & 13.351 & 30.660 & 15.721 & 1.255 & 2.763\\
+New York City & 2,587 & 1 & 16.695 & 25.300 & 37.454 & 147.995 & 14.826 & 28.483 & 16.787 & 1.383 & 3.874\\
+\bottomrule
+\end{longtable}
+\endgroup{}
+
+\textbf{Summary Table 1 Observations:}
+
+In the summary table, we are provided with multiple outputs, a
+five-number summary and informaton about the error. The \textbf{sample
+minimum} and \textbf{sample maximum} informs us about the lowest prices
+of each location. In the state of New York, the lowest prices for a used
+Ford is 1000 dollars USD in both the outer and inner city, and the
+highest price is approximately 130 thousand dollars in the outer city
+and 150 thousand dollars in the inner city. While this does not provide
+useful evidence towards our research question, it is informative in
+determining possible outliers within the minimum and maximum values.
+
+The first quartile (Q1), or 25\% of the data, lies within 20 thousand
+dollars, respectfully for both Albany and New York City, with a
+difference of 3000 dollars. The third quartile (Q3), or 75\% of the
+data, are less than 38 thousand dollars and 37.45 thousand dollars. This
+is the higher end of the prices, but in comparison to the first
+quartile, the price differences are similar, with a simple 0.546
+thousand distinction. In terms of MAD, SAM, SASD, and Sample Skew, these
+are useful in determining the overall distribution and error rate of the
+data. Notice, the standard deviation is quite high. This may be an
+issue, however, when accounting for the minimum and maximum values,
+ranging from 16 thousand dollars to 150 thousand dollars, a standard
+deviation of 15 to 16 thousand is understandable.
+
+The most significant aspect of the summary table is median. Because we
+are interested in determining an overall trend, the average (or median),
+can be useful in determining whether or not there is a significant
+difference in the car prices of all models. In New York, the median
+prices for inner and outer city are quite similar, with a 2.695 thousand
+dollar margin, while accounting for the range of values; however, to
+most, 2.695 thousand dollars would likely be a significant difference.
+
+\hypertarget{summary-table-2-pennsylvania}{%
+\subparagraph{Summary Table 2:
+Pennsylvania}\label{summary-table-2-pennsylvania}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
+  \AttributeTok{x =}\NormalTok{ PA}\SpecialCharTok{$}\NormalTok{price,}
+  \AttributeTok{group =}\NormalTok{ PA}\SpecialCharTok{$}\NormalTok{Location,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{skew =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{ranges =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{quant =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.75}\NormalTok{),}
+  \AttributeTok{IQR =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{mat =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
+
+\CommentTok{\# Set row names as location; select useful columns}
+\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}}\NormalTok{ groupStats\_PA }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{remove\_rownames}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{column\_to\_rownames}\NormalTok{(}
+  \AttributeTok{var =} \StringTok{"group1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}
+\NormalTok{  n, min, Q0}\FloatTok{.25}\NormalTok{, median, Q0}\FloatTok{.75}\NormalTok{, max, mad, mean, sd, skew, kurtosis)}
+
+\CommentTok{\# Generate a professional looking table}
+\NormalTok{groupStats\_PA }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+    \AttributeTok{caption =} \StringTok{"Summary Statistics for Used Car Prices (in Thousands) in Pennsylvania"}\NormalTok{,}
+    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{format.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{big.mark =} \StringTok{","}\NormalTok{),}
+    \AttributeTok{align =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{, }\DecValTok{11}\NormalTok{),}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"Min"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"Median"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Max"}\NormalTok{, }\StringTok{"MAD"}\NormalTok{, }\StringTok{"SAM"}\NormalTok{, }\StringTok{"SASD"}\NormalTok{,}
+    \StringTok{"Sample Skew"}\NormalTok{, }\StringTok{"Sample Ex. Kurtosis"}\NormalTok{),}
+  \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}
+  \AttributeTok{font\_size =} \DecValTok{12}\NormalTok{,}
+  \AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"scale\_down"}\NormalTok{, }\StringTok{"HOLD\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in styling_latex_scale(out, table_info, "down"): Longtable cannot be
+## resized.
+\end{verbatim}
+
+\begingroup\fontsize{12}{14}\selectfont
+
+\begin{longtable}[t]{lccccccccccc}
+\caption{\label{tab:unnamed-chunk-12}Summary Statistics for Used Car Prices (in Thousands) in Pennsylvania}\\
+\toprule
+ & n & Min & Q1 & Median & Q3 & Max & MAD & SAM & SASD & Sample Skew & Sample Ex. Kurtosis\\
+\midrule
+Harrisburg & 2,570 & 2.000 & 17.000 & 25.769 & 37.900 & 147.995 & 14.632 & 29.319 & 17.796 & 1.657 & 5.077\\
+Philadelphia & 2,621 & 1.795 & 16.297 & 24.995 & 36.988 & 147.995 & 14.826 & 28.262 & 16.791 & 1.385 & 3.669\\
+\bottomrule
+\end{longtable}
+\endgroup{}
+
+\textbf{Summary Table 2 Observations}
+
+In table 2, the minimum values are 2 thousand dollars and 1.795 thousand
+dollars. Interestingly, this is higher than the comparison in New York.
+While this does not satisfy our research question, it could provide
+insight towards prices differing based on state. Interestingly, the
+maximum value are the same in both areas, 148 thousand dollars. Because
+the average is around 25 thousand dollars, it is likely that, similar to
+the New York maximum, this data point could be a potential outlier.
+Thus, the maximum and minimum values are not entirely reliable for our
+research question.
+
+Regarding the first quartile, Q1, 25\% of the recorded prices are below
+17 thousand dollars, respectively. There is a slim difference of 0.703
+thousand dollars. The third quartile prices, Q3, are less than 37.9
+thousand dollars and 36.988 thousand dollars. Again, the difference is
+not significant enough to state that there is significance in price
+based on location. From the summary table of Pennsylvania, the prices
+are higher as whole, but when compared to the summary of New York, there
+is less of a location difference. This is mildly contradicting to our
+research question; however, it is insight to consider other confounding
+variables that may arise from the data set, such as year of the model.
+
+The median of the locations, 25.769 and 24.995 thousand dollars further
+highlight the average price of a Used Ford car to be around mid 20
+thousand dollars, whether or not it is in the inner or outer city, when
+using evidence from both Pennsylvania and New York. There does not seem
+to be a significant difference in the median values, and based on the
+full analysis of the table, including the five-number summary and
+maximum and minimum, Pennsylvania does not have any important
+distinction in where consumers should purchase used Fords.
+
+\hypertarget{conclusion}{%
+\subsubsection{\texorpdfstring{\textbf{Conclusion}}{Conclusion}}\label{conclusion}}
+
+\textbf{Research Question: Are Used (Ford) Car Prices Different in Inner
+and Outer Cities?}
+
+In conclusion, based on the EDA and various visualizations presented, we
+did not find evidence that there is a statistically significant
+difference between used Ford car prices in inner and outer cities.
+Although there was no hypothesis test, it can be predicted that the
+p-value would be larger than a 5\% threshold. To summarize, the boxplot
+provided us with the distribution, spread, and general possibility of
+outliers in the data set. The IQR for Pennsylvania and New York did not
+differ much between inner and outer cities. To further emphasize this
+fact, we used a bargraph with the median as the response variable, to
+``zoom in'' on the average differences. We found that there are minor
+distinctions between the median values. Next, to explore the variable
+year, and provide a general visualization of each individual case, along
+with a regression line to portray the upward trend, we used a
+scatterplot. While there was nothing new about the median, we discovered
+that there was an interaction between the two regression lines, and with
+further anaylsis, such as a hypothesis test between interactive terms,
+there may be a significant p-value. Finally, with the summary tables, we
+were able to discuss the numerical differences and found that 2 thousand
+dollars was the largest/most significant found. Overall, it can be
+assumed that location is not a significant variable when considering
+used car prices based on the Ford model.
+
+\end{document}
