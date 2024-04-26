@@ -3,22 +3,22 @@ title: "Stat 184 Final Project"
 author: "Kelly Zhang, Tyler Wong, Yuheng Xie"
 date: "`r paste('Last Updated:', Sys.Date())`"
 output:
+  html_notebook: default
   pdf_document: default
   html_document:
     df_print: paged
-  html_notebook: default
 ---
 
 ## Introduction
 
-**Are Used Car Prices Different in Inner and Outer Cities?**
+**Are Used Car (Ford) Prices Different in Inner and Outer Cities?**
 
 Since 2020, notably after the pandemic, car prices have soared to new heights. In accordance to economic inflation, specifically fuel prices, there is no doubt that purchasing a new car requires immense reflection and a strong financial position. One solution to consider is to purchase a used car. 
 
 When it comes to purchasing a used car, many factors are considered. Such factors include price of the car, the mileage, and the model. These elements have proved to be statistically significant in determining the price of a used car; however, what about the location from whom the car is purchased? 
-For instance, the supply and demand in inner cities, such as New York or Philadelphia, may be higher than that of rural or suburban areas like Harrisburg or Albany. Because inner cities have a larger population, demand may be higher, and this can lead to car price inflation. On the other hand, less populated areas may have less demand and could be cheaper. Therefore, a research question could be, "Are Used Car Prices Different in Inner and Outer Cities?"
+For instance, the supply and demand in inner cities, such as New York or Philadelphia, may be higher than that of rural or suburban areas like Harrisburg or Albany. Because inner cities have a larger population, demand may be higher, and this can lead to car price inflation. On the other hand, less populated areas may have less demand and could be cheaper. Therefore, a research question could be, "Are Used Car Prices (Ford) Different in Inner and Outer Cities?"
 
-To answer the question, our group used data from Autotrader. The Autotrader dataset generator is a website that generates CSV datasets of used cars listed at autotrader.com, which is an online auto retailer, based on a maker, a model, and a zip code. We chose Ford as the focused model as it is the most popular car brand in the United States. This would allow for large amounts of data. We randomly selected one major city and a suburban or rural area. These locations are New York City and Albany, and Philadelphia and Harrisburg.
+To answer the question, our group used data from Autotrader. The Autotrader dataset generator is a website that generates CSV datasets of used cars listed at autotrader.com, which is an online auto retailer, based on a maker, a model, and a zip code. In the data set, each case represents an individual Ford car. We chose Ford as the focused model as it is the most popular car brand in the United States. This would allow for large amounts of data. We randomly selected one major city and a suburban or rural area. These locations are New York City and Albany, and Philadelphia and Harrisburg. In the dataset, there are the variables year, price, and mileage; thus, we will need to add a column for "location." This is further explained in the data visualization preparation process.
 
 ## Data Visualization Preparation
 
@@ -134,9 +134,21 @@ PA <- bind_rows(HARS, PHIL) %>%
 
 All_Cars <- bind_rows(ALB, PHIL, NYC, HARS) %>%
   na.omit() 
+
+write.csv(All_Cars, file = "All_Cars.csv") #add merged dataset to gitHUB
+
 ```
 
 ## Data Exploration and Visaulization
+
+**Data Inspection**
+```{r}
+head(All_Cars)
+
+glimpse(All_Cars)
+```
+
+Based on the data inspection, all elements are structured correctly. For year and price, the variables are measured quantitatively, with integer and floats (accepting decimal values). Regarding location, the cases are categorical and represented by characters or strings. Thus, when doing EDA, we can expect the data frame to provide an output for price, in decimals, and location, as strings. This will be important as we are able to create certain graphs, like boxplots, that account for one quantitative and one categorical variable.
 
 **Side-by-Side Boxplot**
 
@@ -236,12 +248,23 @@ From the side-to-side boxplot, we concluded that there is a minor difference bet
 
 ##### Scatterplot Graph 1: New York
 
+**Scatterplot Process & Purpose:**
+
+The scatterplot is a model that is different from our general data visualization process. One of the main differences is the x-axis includes the variable "year," meaning there are 3 variables of interest (price, year, location), rather than the original two variables, price and location. The reason a scatterplot was introduced was to display the overall trend of Ford cars to support the two regression lines. Without each individual data point, we may not understand where the inserction between lines occur or why it is a positive slope.
+
 ```{r}
 
 gf_point(price ~ year, color = ~ Location, data = NY) %>%
   gf_lm()
 
 ```
+
+**Scatterplot 1 Observations**
+
+In the first scatterplot, there are multiple observations to note. Firstly, notice that there is an intersection point between the lines. This is interesting as it provides evidence that there may be a significant interaction term between location and price. We can later test this theory by using a hypothesis test and fitted model. 
+
+Secondly, the heavy increasing trend towards the year 2020. Almost in the shape of a helix, the values on the far right introduce an all-time-high price at around $150 000. Given that this may be an outlier, when observing the data that follows, there is no doubt that as the year increases, so does the price. In the context of the data set, this provides evidence that the newer the car, the higher the price. Although this does not necessarily support our location and price research inquiry, it is important to explore other variables when location and price seem to be insignificant. 
+
 
 ##### Scatterplot Graph 2: Pennsylvania
 
@@ -251,52 +274,105 @@ gf_point(price ~ year, color = ~ Location, data = PA) %>%
   gf_lm()
 ```
 
-### **Summary Tables**
+**Scatterplot 2 Observations:**
+
+The second scatterplot, between Harrisburg and Philadephia, is notable because the lines are extremely similar. This is contradicting information from the first scatterplot, in which there were small differences in slope and y-intercept, specifically between the 1990 to 2010. This provided evidence that there may be a difference in locations and price. However, from the Pennsylvania scatterplot, the plot shows little evidence that there is a relevant difference in prices for Harrisburg and Philadephia. 
+
+
+### **Summary Table**
 
 ##### Summary Table 1: New York
+
 ```{r}
-NYC_price <- c("New York", subset(describe(NYC$price), select = -c(vars, trimmed, mad, kurtosis, range)))
+# Get descriptive statistics of price and location
+groupStats_NY <- psych::describeBy(
+  x = NY$price,
+  group = NY$Location,
+  na.rm = TRUE,
+  skew = TRUE,
+  ranges = TRUE,
+  quant = c(0.25, 0.75),
+  IQR = TRUE,
+  mat = TRUE,
+  digits = 4)
 
-ALB_price <- c("Albany", subset(describe(ALB$price), select = -c(vars, trimmed, mad, kurtosis, range)))
+# Set row names as location; select useful columns
+groupStats_NY <- groupStats_NY %>%
+  tibble::remove_rownames() %>%
+  tibble::column_to_rownames(
+  var = "group1") %>%
+  dplyr::select(
+  n, min, Q0.25, median, Q0.75, max, mad, mean, sd, skew, kurtosis)
 
-binding <- rbind.data.frame(NYC_price, ALB_price)
-Summ_NYC_ALB <- data.frame(binding)
-colnames(Summ_NYC_ALB)[which(names(Summ_NYC_ALB) == "c..New.York....Albany..")] <- "city"
+# Generate a professional looking table
+groupStats_NY %>%
+  knitr::kable(
+    caption = "Summary Statistics for Used Car Prices (in Thousands) in New York",
+    digits = 3,
+    format.args = list(big.mark = ","),
+    align = rep('c', 11),
+    col.names = c("n", "Min", "Q1", "Median", "Q3", "Max", "MAD", "SAM", "SASD",
+    "Sample Skew", "Sample Ex. Kurtosis"),
+  booktabs = TRUE) %>%
+  kableExtra::kable_styling(
+  font_size = 12,
+  latex_options = c("scale_down", "HOLD_position"))
 
-Summ_NYC_ALB %>% kable(
-    caption = "Price of Used Cars in NYC and ALB (in thousands)",
-    booktabs = TRUE,
-    align = c("l", rep("c", 6)),
-    digits = 2
-  ) %>% row_spec(seq(1,nrow(Summ_NYC_ALB),2), background = "#E0EEEE") %>%
-  kable_styling(      
-    bootstrap_options = c("striped"),
-    font_size = 16,
-  )
 ```
+
+**Summary Table 1 Observations:**
+
+
+In the summary table, we are provided with multiple outputs, a five-number summary and informaton about the error. The **sample minimum** and **sample maximum** informs us about the lowest prices of each location. In the state of New York, the lowest prices for a used Ford is 1000 dollars USD in both the outer and inner city, and the highest price is approximately 130 thousand dollars in the outer city and 150 thousand dollars in the inner city. While this does not provide useful evidence towards our research question, it is informative in determining possible outliers within the minimum and maximum values.
+
+The first quartile (Q1), or 25% of the data, lies within 20 thousand dollars, respectfully for both Albany and New York City, with a difference of 3000 dollars. The third quartile (Q3), or 75% of the data, are less than 38 thousand dollars and 37.45 thousand dollars. This is the higher end of the prices, but in comparison to the first quartile, the price differences are similar, with a simple 0.546 thousand distinction. In terms of MAD, SAM, SASD, and Sample Skew, these are useful in determining the overall distribution and error rate of the data. Notice, the standard deviation is quite high. This may be an issue, however, when accounting for the minimum and maximum values, ranging from 16 thousand dollars to 150 thousand dollars, a standard deviation of 15 to 16 thousand is understandable. 
+
+The most significant aspect of the summary table is median. Because we are interested in determining an overall trend, the average (or median), can be useful in determining whether or not there is a significant difference in the car prices of all models. In New York, the median prices for inner and outer city are quite similar, with a 2.695 thousand dollar margin, while accounting for the range of values; however, to most, 2.695 thousand dollars would likely be a significant difference. 
+
 
 ##### Summary Table 2: Pennsylvania
 
 ```{r}
+groupStats_PA <- psych::describeBy(
+  x = PA$price,
+  group = PA$Location,
+  na.rm = TRUE,
+  skew = TRUE,
+  ranges = TRUE,
+  quant = c(0.25, 0.75),
+  IQR = TRUE,
+  mat = TRUE,
+  digits = 4)
 
-PHIL_price <- c("Philadelphia", subset(describe(PHIL$price), select = -c(vars, trimmed, mad, kurtosis, range)))
-HARS_price <- c("Harrisburg", subset(describe(HARS$price), select = -c(vars, trimmed, mad, kurtosis, range)))
+# Set row names as location; select useful columns
+groupStats_PA <- groupStats_PA %>%
+  tibble::remove_rownames() %>%
+  tibble::column_to_rownames(
+  var = "group1") %>%
+  dplyr::select(
+  n, min, Q0.25, median, Q0.75, max, mad, mean, sd, skew, kurtosis)
 
-binding <- rbind.data.frame(PHIL_price, HARS_price)
-Summ_PHIL_HARS <- data.frame(binding)
-colnames(Summ_PHIL_HARS)[which(names(Summ_PHIL_HARS) == "c..Philadelphia....Harrisburg..")] <- "city"
+# Generate a professional looking table
+groupStats_PA %>%
+  knitr::kable(
+    caption = "Summary Statistics for Used Car Prices (in Thousands) in Pennsylvania",
+    digits = 3,
+    format.args = list(big.mark = ","),
+    align = rep('c', 11),
+    col.names = c("n", "Min", "Q1", "Median", "Q3", "Max", "MAD", "SAM", "SASD",
+    "Sample Skew", "Sample Ex. Kurtosis"),
+  booktabs = TRUE) %>%
+  kableExtra::kable_styling(
+  font_size = 12,
+  latex_options = c("scale_down", "HOLD_position"))
 
-Summ_PHIL_HARS %>% kable(
-    caption = "Price of Used Cars in PHIL and HARS (in thousands)",
-    booktabs = TRUE,
-    align = c("l", rep("c", 6)),
-    digits = 2
-  ) %>% row_spec(seq(1,nrow(Summ_PHIL_HARS),2), background = "#E0EEEE") %>%
-  kable_styling(      
-    bootstrap_options = c("striped"),
-    font_size = 16,
-  )
 ```
 
+**Summary Table 2 Observations**
 
+In table 2, the minimum values are 2 thousand dollars and 1.795 thousand dollars. Interestingly, this is higher than the comparison in New York. While this does not satisfy our research question, it could provide insight towards prices differing based on state. Interestingly, the maximum value are the same in both areas, 148 thousand dollars. Because the average is around 25 thousand dollars, it is likely that, similar to the New York maximum, this data point could be a potential outlier. Thus, the maximum and minimum values are not entirely reliable for our research question.
+
+Regarding the first quartile, Q1, 25% of the recorded prices are below 17 thousand dollars, respectively. There is a slim difference of 0.703 thousand dollars. The third quartile prices, Q3, are less than 37.9 thousand dollars and 36.988 thousand dollars. Again, the difference is not significant enough to state that there is significance in price based on location. From the summary table of Pennsylvania, the prices are higher as whole, but when compared to the summary of New York, there is less of a location difference. This is mildly contradicting to our research question; however, it is insight to consider other confounding variables that may arise from the data set, such as year of the model.
+
+The median of the locations, 25.769 and 24.995 thousand dollars further highlight the average price of a Used Ford car to be around mid 20 thousand dollars, whether or not it is in the inner or outer city, when using evidence from both Pennsylvania and New York. There does not seem to be a significant difference in the median values, and based on the full analysis of the table, including the five-number summary and maximum and minimum, Pennsylvania does not have any important distinction in where consumers should purchase used Fords. 
 
