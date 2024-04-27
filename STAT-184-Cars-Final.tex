@@ -122,7 +122,7 @@
 
 \title{Stat 184 Final Project}
 \author{Kelly Zhang, Tyler Wong, Yuheng Xie}
-\date{Last Updated: 2024-04-26}
+\date{Last Updated: 2024-04-27}
 
 \begin{document}
 \maketitle
@@ -133,50 +133,61 @@
 \textbf{Are Used Car (Ford) Prices Different in Inner and Outer Cities?}
 
 Since 2020, notably after the pandemic, car prices have soared to new
-heights. In accordance to economic inflation, specifically fuel prices,
-there is no doubt that purchasing a new car requires immense reflection
-and a strong financial position. One solution to consider is to purchase
-a used car.
+heights. In response to economic inflation, specifically fuel prices,
+there's no doubt that purchasing a new car requires considerable
+reflection and a strong financial position. One solution to consider is
+purchasing a used car.
 
-When it comes to purchasing a used car, many factors are considered.
-Such factors include price of the car, the mileage, and the model. These
-elements have proved to be statistically significant in determining the
-price of a used car; however, what about the location from whom the car
-is purchased? For instance, the supply and demand in inner cities, such
-as New York or Philadelphia, may be higher than that of rural or
-suburban areas like Harrisburg or Albany. Because inner cities have a
-larger population, demand may be higher, and this can lead to car price
-inflation. On the other hand, less populated areas may have less demand
-and could be cheaper. Therefore, a research question could be, ``Are
-Used Car (Ford) Prices Different in Inner and Outer Cities?''
+When it comes to purchasing a used car, many factors are taken into
+consideration. These include the price of the car, its mileage, the
+model, and the year. These elements have proven to be statistically
+significant, through numerous published experiments, in determining the
+price of a used car. However, have we considered the impact of the
+location where the car is purchased?
 
-To answer the question, our group used data from Autotrader. The
-Autotrader dataset generator is a website that generates CSV datasets of
-used cars listed at autotrader.com, which is an online auto retailer,
-based on a maker, a model, and a zip code. In the data set, each case
-represents an individual Ford car. We chose Ford as the focused model as
-it is the most popular car brand in the United States. This would allow
-for large amounts of data. We randomly selected one major city and a
-suburban or rural area. These locations are New York City and Albany,
-and Philadelphia and Harrisburg. In the dataset, there are the variables
-year, price, and mileage; thus, we will need to add a column for
-``location.'' This is further explained in the data visualization
+For instance, the supply and demand in inner cities, such as New York or
+Philadelphia, may be higher than in rural or suburban areas like
+Harrisburg or Albany. Inner cities, with their larger populations, may
+have higher demand, leading to car price inflation. On the other hand,
+less populated areas may have less demand and could offer cheaper
+options. Therefore, a potential research question could be, ``Are Used
+Car Prices Different in Inner and Outer Cities?''
+
+To answer this question, our group used data from Autotrader. The
+Autotrader generator is a website that produces CSV datasets of used
+cars listed at autotrader.com, an online auto retailer, based on a
+maker, a model, and a zip code. In the dataset, each case represents an
+individual Ford car. We chose Ford as the focus model as it is the most
+popular car brand in the United States, allowing for a large amount of
+data and lower standard error. We randomly selected one major city and a
+suburban or rural area for comparison to allow for possible
+generalization. These locations are New York City and Albany, and
+Philadelphia and Harrisburg. The dataset includes the variables year,
+price, and mileage. To add location, we need to add a column titled
+``location.'' This will be further explained in the data visualization
 preparation process.
 
-\hypertarget{data-visualization-preparation}{%
-\subsection{Data Visualization
-Preparation}\label{data-visualization-preparation}}
+\hypertarget{data-visualization-preparation-coding-style}{%
+\subsection{Data Visualization Preparation \& Coding
+Style}\label{data-visualization-preparation-coding-style}}
+
+\textbf{Coding Style}
+
+The coding style used throughout this report is Book of Apps for
+Statistics Teaching (BOAST) Style.
 
 \textbf{Data Visualization Preparation Process}
 
-The research conducted is split into 4 parts. The first part is data
-wrangling and data preparation. The data set is tidied, but the data is
-separated by model. Because we are focused on price and location, we add
-a location column and merge every Ford model to create a New York City
-data set. This procedure is then repeated for the following cities:
-Albany, Philadelphia, and Harrisburg. There are 4 data sets representing
-location and price. Additionally, each dataset is filtered to remove all
-N/A values and prices that are 0, as prices cannot be \$0.
+The research is divided into four parts, with the first part focusing on
+data wrangling and preparation. Because the data set is tidied, we can
+immediately begin the wranging process. Given our focus on price and
+location, we add a location column and merge all Ford models to create a
+data set for New York City. This process is replicated for Albany,
+Philadelphia, and Harrisburg, resulting in four datasets that represent
+location and price of used Ford cars. Then, the data frames are merged
+into completion, titled ``All\_Cars.'' Furthermore, each dataset is
+filtered to eliminate N/A values and instances where the price is 0, as
+prices cannot be \$0.
 
 \textbf{Load Packages}
 
@@ -210,13 +221,16 @@ N/A values and prices that are 0, as prices cannot be \$0.
 
 \NormalTok{HARS}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"Harrisburg"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(HARS))}
 
-\NormalTok{NY }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(NYC, ALB) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{NY }\OtherTok{\textless{}{-}} 
+  \FunctionTok{bind\_rows}\NormalTok{(NYC, ALB) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{na.omit}\NormalTok{()}
 
-\NormalTok{PA }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(HARS, PHIL) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{PA }\OtherTok{\textless{}{-}} 
+  \FunctionTok{bind\_rows}\NormalTok{(HARS, PHIL) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{na.omit}\NormalTok{()}
 
-\NormalTok{All\_Cars }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(ALB, PHIL, NYC, HARS) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{All\_Cars }\OtherTok{\textless{}{-}} 
+  \FunctionTok{bind\_rows}\NormalTok{(ALB, PHIL, NYC, HARS) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{na.omit}\NormalTok{() }
 
 \FunctionTok{write.csv}\NormalTok{(All\_Cars, }\AttributeTok{file =} \StringTok{"All\_Cars.csv"}\NormalTok{) }\CommentTok{\#add merged dataset to gitHUB}
@@ -252,33 +266,33 @@ Visaulization}\label{data-exploration-and-visaulization}}
 \end{Shaded}
 
 \begin{verbatim}
-## Rows: 9,435
+## Rows: 9,583
 ## Columns: 3
 ## $ year     <int> 2012, 2019, 2017, 2012, 2014, 2017, 2018, 2003, 2006, 2017, 1~
 ## $ price    <dbl> 9.995, 14.480, 12.998, 6.999, 7.495, 19.950, 17.000, 2.999, 5~
 ## $ Location <chr> "Albany", "Albany", "Albany", "Albany", "Albany", "Albany", "~
 \end{verbatim}
 
-Based on the data inspection, all elements are structured correctly. For
-year and price, the variables are measured quantitatively, with integer
-and floats (accepting decimal values). Regarding location, the cases are
-categorical and represented by characters or strings. Thus, when doing
-EDA, we can expect the data frame to provide an output for price, in
-decimals, and location, as strings. This will be important as we are
-able to create certain graphs, like boxplots, that account for one
-quantitative and one categorical variable.
+Upon inspecting the data, all elements are correctly structured. The
+variables `year' and `price' are quantitatively measured as integers and
+floats, respectively, allowing for decimal values. As for `location', it
+is a categorical variable represented by strings. Therefore, during
+Exploratory Data Analysis (EDA), we can anticipate the data frame to
+produce outputs for `price' in decimal form and `location' as strings.
+This is crucial as it enables us to generate certain graphs, such as
+boxplots, which account for one quantitative and one categorical
+variable.
 
 \textbf{Side-by-Side Boxplot}
 
-For the data exploration and visualization process, we create a box plot
-as there is categorical and quantitative data. A box plot is a strong
-data visualization to portray the relationship between these variables,
-and the visualization of a five-number summary.
+In the data exploration and visualization process, we create a boxplot
+using both the categorical and quantitative data. A box plot serves as
+an effective visualization tool to depict the relationship between these
+variables, as well as to display a five-number summary.
 
-\textbf{\emph{Five-number summary}}: descriptive statistics that output
-a minimum value, first-quartile (25\% or 25th percentile), median (50\%
-or 50th percentile), third quartile (75\% or 75th percentile), and the
-maximum value.
+\textbf{\emph{Five-number summary}}: Descriptive statistics output the
+minimum value, first quartile (25th percentile), median (50th
+percentile), third quartile (75th percentile), and the maximum value.
 
 \hypertarget{boxplot-1-new-york}{%
 \subparagraph{Boxplot 1: New York}\label{boxplot-1-new-york}}
@@ -326,15 +340,36 @@ maximum value.
 
 \textbf{Boxplot Observations:}
 
-From the boxplot 1 and 2, New York and Pennsylvania, there are multiple
-observations that can be insightful. Firstly, notice the amount of
-outliers. These outliers are difficult to remove due to the different
-confounding variables regarding price variation. Although we were able
-to remove few outliers with cars that were \$0, higher outliers are not
-as easily found. The second observation is the actual IQR values. The
-IQR range (third quartile - first quartile) and median are similar in
-both locations, suggesting that there may not be a statistically
-significant difference.
+In the initial comparative boxplot, which compares Albany and New York
+City, note the three features: the outliers, the interquartile range
+(IQR), and the median. During the data preparation phase, one of our
+objectives was to eliminate prices that were unrealistic in a real-world
+context, such as a price of \$0 or NA. Outliers are challenging to
+eliminate, and given their abundance, it's preferable to maintain these
+data points to preserve the majority of the dataset. Consequently, even
+though the maximum value is around \$150,000, which may seem illogical
+compared to the median, we cannot determine whether or not it is a
+confirmed outlier. A significant advantage of a boxplot is its use of
+the median value instead of the mean. In most situations, the mean value
+would be preferred. However, due to the number of outliers, the median
+value provides a more accurate representation as it minimizes the impact
+of outliers, thereby preventing the influence of a potential skew.
+
+The IQR (third quartile minus the first quartile) is similar to the
+median, suggesting that the distribution or spread of the data is close.
+This also implies that the prices of individual cars are likely to be
+similar.
+
+The median is approximately \$25,000 USD, and unfortunately, there
+appears to be insufficient evidence to suggest a correlation between the
+location of the car purchase and its price.
+
+The second boxplot yields almost identical results to the first. The
+outliers appear to dominate the plot. Interestingly, the outliers and
+IQR closely match those of the New York plot, indicating that the prices
+of used Ford models are consistent across all locations, as are their
+medians. This observation will be further investigated in the
+forthcoming bar graph visualization.
 
 \hypertarget{bar-graphs}{%
 \subsubsection{\texorpdfstring{\textbf{Bar
@@ -345,7 +380,8 @@ Graphs}}{Bar Graphs}}\label{bar-graphs}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{NY\_Median }\OtherTok{\textless{}{-}}\NormalTok{ NY }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{NY\_Median }\OtherTok{\textless{}{-}} 
+\NormalTok{  NY }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Location) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 
@@ -372,7 +408,8 @@ Pennsylvania}\label{bar-graph-2-pennsylvania}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{PA\_Median }\OtherTok{\textless{}{-}}\NormalTok{ PA }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{PA\_Median }\OtherTok{\textless{}{-}} 
+\NormalTok{  PA }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Location) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 
@@ -394,17 +431,31 @@ Pennsylvania}\label{bar-graph-2-pennsylvania}}
 \includegraphics{STAT-184-Cars-Final_files/figure-latex/unnamed-chunk-8-1.pdf}
 \textbf{Bar Graph Observations:}
 
-From the side-to-side boxplot, we concluded that there is a minor
+From the side-by-side boxplot, we concluded that there is a minor
 difference between the inner and outer city car prices. The bar graphs
 allow us to ``zoom in'' on this visualization by wrangling both data
-sets with group\_by() and summarise() function. Using these functions,
-we can calculate the median for both data sets. Typically, the mean is
-used for discussing averages; however, as found in the boxplots, there
-are many outliers, which are difficult to remove. Thus, we are able to
-use median to minimize the effects of outliers and influential points in
-the data. As observed in both plots, the median prices are not
-significantly different between locations. In fact, there may only be a
-noticeable thousand dollar distinction.
+sets with the group\_by() and summarise() functions. Using these
+functions, we can calculate the median for both data sets.
+
+In the first bar graph, between Albany and New York City, the median is
+close to a margin of \$2000 USD. From a numerical standpoint, a
+difference of \$2000 is not significant when compared to the range of
+values, which is from around \$1000 to \$150,000 USD. However, in a
+real-life context, \$2000 might be considered a deal breaker for most
+clients. Thus, it's difficult to determine whether or not this
+difference is important based purely on EDA, without further hypothesis
+testing. But, with the result of the second graph and boxplot, we can
+create a strong inference.
+
+When considering the median prices in Pennsylvania, Harrisburg and
+Philadelphia, the median is approximately \$1000 USD. One similarity is
+that the average car prices in Harrisburg and Albany are higher than
+those in Philadelphia and New York City. On one hand, this is surprising
+as cities often struggle with economic inflation. On the other, outer
+cities may have a lower supply as there are fewer residents.
+
+Based on the observations of both graphs, we remain confident that there
+is still no significant difference in price based on location.
 
 \hypertarget{scatterplot-graphs}{%
 \subsubsection{\texorpdfstring{\textbf{Scatterplot
@@ -416,15 +467,15 @@ York}\label{scatterplot-graph-1-new-york}}
 
 \textbf{Scatterplot Process \& Purpose:}
 
-The scatterplot is a model that is different from our general data
-visualization process. One of the main differences is the x-axis
-includes the variable ``year,'' meaning there are 3 variables of
-interest (price, year, location), rather than the original two
-variables, price and location. The reason a scatterplot was introduced
-was to display the overall trend of Ford cars to support the two
-regression lines. Without each individual data point, we may not
-understand where the inserction between lines occur or why it is a
-positive slope.
+The scatterplot represents a different approach from our general data
+visualization process. One of the main differences is that the
+scatterplot includes the variable `year' on the x-axis, which means
+there are three variables of interest (price, year, location) instead of
+the original two (price and location). The scatterplot was introduced to
+display the overall trend of Ford car prices and to provide a visual aid
+for the two regression lines. Without each individual data point, it
+might be difficult to understand where the intersection between the
+lines occurs or why there is a positive slope.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -446,20 +497,22 @@ positive slope.
 \textbf{Scatterplot 1 Observations}
 
 In the first scatterplot, there are multiple observations to note.
-Firstly, notice that there is an intersection point between the lines.
-This is interesting as it provides evidence that there may be a
-significant interaction term between location and price. We can later
-test this theory by using a hypothesis test and fitted model.
+Firstly, it's noticeable that there is an intersection point between the
+lines. This is interesting as it suggests that there might be a
+significant interaction term between location and price. Unfortunately,
+a hypothesis test would be required to make this inference.
 
-Secondly, the heavy increasing trend towards the year 2020. Almost in
-the shape of a helix, the values on the far right introduce an
-all-time-high price at around \$150 000. Given that this may be an
-outlier, when observing the data that follows, there is no doubt that as
-the year increases, so does the price. In the context of the data set,
-this provides evidence that the newer the car, the higher the price.
-Although this does not necessarily support our location and price
-research inquiry, it is important to explore other variables when
-location and price seem to be insignificant.
+Secondly, there is a noticeable increasing trend towards the year 2020.
+The values, almost in the shape of a helix, on the far right indicate an
+all-time-high price at around \$150,000. Although this might be an
+outlier, it's clear from the following data that the price increases as
+the year progresses. In the context of this data set, it provides
+evidence that the price of a car increases with its novelty.
+
+Although this observation doesn't necessarily support our research
+inquiry into the relationship between location and price, it underscores
+the importance of exploring other variables when the significance of
+location and price appears to be minimal.
 
 \hypertarget{scatterplot-graph-2-pennsylvania}{%
 \subparagraph{Scatterplot Graph 2:
@@ -476,14 +529,14 @@ Pennsylvania}\label{scatterplot-graph-2-pennsylvania}}
 
 \textbf{Scatterplot 2 Observations:}
 
-The second scatterplot, between Harrisburg and Philadephia, is notable
-because the lines are extremely similar. This is contradicting
-information from the first scatterplot, in which there were small
-differences in slope and y-intercept, specifically between the 1990 to
-2010. This provided evidence that there may be a difference in locations
-and price. However, from the Pennsylvania scatterplot, the plot shows
-little evidence that there is a relevant difference in prices for
-Harrisburg and Philadephia.
+The second scatterplot, which compares Harrisburg and Philadelphia, is
+notable because the regression lines are extremely similar. This
+contradicts the information from the first scatterplot, which showed
+small differences in slope and y-intercept, specifically between the
+years 1990 to 2010. This suggested that there might be a difference in
+car prices between locations. However, the scatterplot for Pennsylvania
+shows little evidence of a significant difference in car prices between
+Harrisburg and Philadelphia.
 
 \hypertarget{summary-table}{%
 \subsubsection{\texorpdfstring{\textbf{Summary
@@ -496,7 +549,8 @@ York}\label{summary-table-1-new-york}}
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Get descriptive statistics of price and location}
-\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
+\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}} 
+\NormalTok{  psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
   \AttributeTok{x =}\NormalTok{ NY}\SpecialCharTok{$}\NormalTok{price,}
   \AttributeTok{group =}\NormalTok{ NY}\SpecialCharTok{$}\NormalTok{Location,}
   \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
@@ -508,7 +562,8 @@ York}\label{summary-table-1-new-york}}
   \AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
 
 \CommentTok{\# Set row names as location; select useful columns}
-\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}}\NormalTok{ groupStats\_NY }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{groupStats\_NY }\OtherTok{\textless{}{-}} 
+\NormalTok{  groupStats\_NY }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{remove\_rownames}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{column\_to\_rownames}\NormalTok{(}
   \AttributeTok{var =} \StringTok{"group1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
@@ -543,8 +598,8 @@ York}\label{summary-table-1-new-york}}
 \toprule
  & n & Min & Q1 & Median & Q3 & Max & MAD & SAM & SASD & Sample Skew & Sample Ex. Kurtosis\\
 \midrule
-Albany & 1,657 & 1 & 19.890 & 27.995 & 38.000 & 129.500 & 13.351 & 30.660 & 15.721 & 1.255 & 2.763\\
-New York City & 2,587 & 1 & 16.695 & 25.300 & 37.454 & 147.995 & 14.826 & 28.483 & 16.787 & 1.383 & 3.874\\
+Albany & 1,657 & 1.000 & 19.890 & 27.995 & 38.00 & 129.500 & 13.351 & 30.660 & 15.721 & 1.255 & 2.763\\
+New York City & 2,735 & 1.795 & 17.491 & 25.849 & 36.97 & 147.995 & 14.024 & 28.512 & 16.320 & 1.432 & 4.251\\
 \bottomrule
 \end{longtable}
 \endgroup{}
@@ -588,7 +643,8 @@ Pennsylvania}\label{summary-table-2-pennsylvania}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
+\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}} 
+\NormalTok{  psych}\SpecialCharTok{::}\FunctionTok{describeBy}\NormalTok{(}
   \AttributeTok{x =}\NormalTok{ PA}\SpecialCharTok{$}\NormalTok{price,}
   \AttributeTok{group =}\NormalTok{ PA}\SpecialCharTok{$}\NormalTok{Location,}
   \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
@@ -600,7 +656,8 @@ Pennsylvania}\label{summary-table-2-pennsylvania}}
   \AttributeTok{digits =} \DecValTok{4}\NormalTok{)}
 
 \CommentTok{\# Set row names as location; select useful columns}
-\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}}\NormalTok{ groupStats\_PA }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{groupStats\_PA }\OtherTok{\textless{}{-}} 
+\NormalTok{  groupStats\_PA }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{remove\_rownames}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tibble}\SpecialCharTok{::}\FunctionTok{column\_to\_rownames}\NormalTok{(}
   \AttributeTok{var =} \StringTok{"group1"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
